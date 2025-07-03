@@ -1,0 +1,7 @@
+<<<<<<< HEAD
+node_modules/ 
+=======
+node_modules/
+.env
+uploads/
+>>>>>>> 03c6ce11e9cf2393328d93f8cda20f45a14f4c88
