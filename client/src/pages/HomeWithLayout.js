@@ -45,7 +45,7 @@ const HomeWithLayout = ({ page }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(null);
   const [darkMode, setDarkMode] = useState(localStorage.getItem("theme") !== "light");
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [user] = useState({ name: "Vivek Jaiswal" });
+  const [user] = useState({ name: "Hello User!" });
   const navigate = useNavigate();
   const location = useLocation();
 
