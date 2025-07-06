@@ -28,7 +28,7 @@ const AuthPage = () => {
 
     try {
       if (isLogin) {
-        const res = await axios.post("http://localhost:5000/api/auth/login", {
+        const res = await axios.post("https://podcast-backend-hixn.onrender.com/api/auth/login", {
           email: form.email,
           password: form.password,
         });
@@ -38,7 +38,7 @@ const AuthPage = () => {
         toast.success("Login successful!");
         navigate("/");
       } else {
-        await axios.post("http://localhost:5000/api/auth/signup", form);
+        await axios.post("https://podcast-backend-hixn.onrender.com/api/auth/signup", form);
         toast.success("Signup successful! Please login.");
         setIsLogin(true);
       }

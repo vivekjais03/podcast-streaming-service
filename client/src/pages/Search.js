@@ -36,7 +36,7 @@ const Search = () => {
   useEffect(() => {
     const fetchPodcasts = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/podcasts");
+        const res = await axios.get("https://podcast-backend-hixn.onrender.com/api/podcasts");
         setAllPodcasts(res.data);
       } catch (err) {
         console.error("Error fetching podcasts", err);
@@ -57,7 +57,7 @@ const Search = () => {
   const renderMediaPlayer = (filename) => {
     if (!filename) return null;
     const ext = filename.split(".").pop().toLowerCase();
-    const src = `http://localhost:5000/uploads/${filename}`;
+    const src = `https://podcast-backend-hixn.onrender.com/uploads/${filename}`;
 
     if (["mp3", "wav", "mpeg"].includes(ext)) {
       return (

@@ -21,7 +21,7 @@ const Favourites = () => {
     const fetchFavourites = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get("http://localhost:5000/api/favourites", {
+        const res = await axios.get("https://podcast-backend-hixn.onrender.com/api/favourites", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setFavourites(res.data);
@@ -36,7 +36,7 @@ const Favourites = () => {
   const handleRemove = async (id) => {
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:5000/api/favourites/${id}`, {
+      await axios.delete(`https://podcast-backend-hixn.onrender.com/api/favourites/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setFavourites((prev) => prev.filter((fav) => fav._id !== id));
@@ -59,7 +59,7 @@ const Favourites = () => {
 
   const renderMediaPlayer = (filename, autoplay = false) => {
     const ext = filename.split(".").pop().toLowerCase();
-    const src = `http://localhost:5000/uploads/${filename}`;
+    const src = `https://podcast-backend-hixn.onrender.com/uploads/${filename}`;
 
     if (["mp3", "wav", "mpeg"].includes(ext)) {
       return (

@@ -8,7 +8,7 @@ const PodcastList = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/podcasts");
+        const res = await axios.get("https://podcast-backend-hixn.onrender.com/api/podcasts");
         setPodcasts(res.data);
       } catch (err) {
         console.error("Error fetching podcasts:", err.message);
@@ -28,7 +28,7 @@ const PodcastList = () => {
           <h3 className="text-xl font-semibold">{podcast.title}</h3>
           <p className="text-gray-700 mb-2">{podcast.description}</p>
           <audio controls className="w-full mt-2">
-            <source src={`http://localhost:5000/uploads/${podcast.audio}`} type="audio/mpeg" />
+            <source src={`https://podcast-backend-hixn.onrender.com/uploads/${podcast.audio}`} type="audio/mpeg" />
             Your browser does not support the audio element.
           </audio>
         </div>

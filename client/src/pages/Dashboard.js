@@ -60,7 +60,7 @@ const Dashboard = () => {
     }
 
     const ext = filename.split(".").pop().toLowerCase();
-    const src = `http://localhost:5000/uploads/${filename}`;
+    const src = `https://podcast-backend-hixn.onrender.com/uploads/${filename}`;
     const isVideo = ["mp4", "mov", "webm", "ogg"].includes(ext);
     const containerStyle =
       "mt-2 p-1 bg-gray-100 dark:bg-[#2a2a3b] border border-gray-300 dark:border-gray-600 rounded-md shadow-md";
