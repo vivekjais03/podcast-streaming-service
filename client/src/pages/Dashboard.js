@@ -9,7 +9,7 @@ const Dashboard = () => {
 
   const fetchPodcasts = async () => {
     try {
-      const res = await axiosInstance.get("/podcasts");
+      const res = await axiosInstance.get("/api/podcasts");
       setPodcasts(res.data);
     } catch (err) {
       console.error("❌ Failed to fetch podcasts:", err);
