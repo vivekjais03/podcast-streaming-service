@@ -24,7 +24,7 @@ const Dashboard = () => {
     if (!token) return toast.error("Please login to delete podcast");
 
     try {
-      await axiosInstance.delete(`/podcasts/${podcastId}`, {
+      await axiosInstance.delete(`/api/podcasts/${podcastId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setPodcasts((prev) => prev.filter((p) => p._id !== podcastId));
@@ -41,7 +41,7 @@ const Dashboard = () => {
 
     try {
       await axiosInstance.post(
-        `/favourites/${podcastId}`,
+        `/api/favourites/${podcastId}`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` },
