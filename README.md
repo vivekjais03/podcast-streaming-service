@@ -1,28 +1,28 @@
-🎷 Podcast Streaming Service
+#🎷 Podcast Streaming Service
 
 A full-stack podcast streaming platform where users can register, log in, upload podcasts, and listen to podcasts. Built using the MERN stack and deployed using Render (backend) and Vercel (frontend).
 
-📍 Live Website
+#📍 Live Website
 
 https://podcast-streaming-service-rouge.vercel.app
 
-🚀 Features
+#🚀 Features
 
-✅ User authentication (signup & login)
+ -> User authentication (signup & login)
 
-✅ Upload & stream podcasts
+ -> Upload & stream podcasts
 
-✅ View all podcasts on dashboard
+ -> View all podcasts on dashboard
 
-✅ Audio player with controls
+ -> Audio player with controls
 
-✅ Add to favourites
+ -> Add to favourites
 
-✅ Responsive UI with React.js & Tailwind CSS
+ -> Responsive UI with React.js & Tailwind CSS
 
-🧰 Tech Stack
+#🧰 Tech Stack
 
-🔧 Frontend
+#🔧 Frontend
 
 React.js
 
@@ -30,7 +30,7 @@ Tailwind CSS
 
 Axios
 
-🚀 Backend
+#🚀 Backend
 
 Express.js
 
@@ -42,7 +42,7 @@ bcryptjs, JWT (authentication)
 
 Helmet + CORS (security)
 
-📚 Project Structure
+#📚 Project Structure
 
 /podcast-streaming-service
 |-- /client         # Frontend (React)
@@ -52,11 +52,11 @@ Helmet + CORS (security)
     |-- /uploads    # Uploaded podcast audio files
     |-- index.js    # Entry point of backend
 
-🎥 Screenshots
+#🎥 Screenshots
 
 Login, Register, Upload, Audio Player
 
-🛠️ Installation & Setup
+#🛠️ Installation & Setup
 
 1. Clone the Repository
 
@@ -88,18 +88,18 @@ npm start
 cd ../client
 npm start
 
-✨ Deployment
+#✨ Deployment
 
 Frontend hosted on Vercel
 
 Backend hosted on Render
 
-🙌 Author
+#🙌 Author
 
 Made with ❤️ by Vivek Jaiswal
 GitHub: @vivekjais03
 
-🚪 License
+#🚪 License
 
 This project is licensed under the MIT License - feel free to use it for learning or projects.
 
