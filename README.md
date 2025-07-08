@@ -52,10 +52,6 @@ Helmet + CORS (security)
     |-- /uploads    # Uploaded podcast audio files
     |-- index.js    # Entry point of backend
 
-# 🎥 Screenshots
-
-Login, Register, Upload, Audio Player
-
 # 🛠️ Installation & Setup
 
 1. Clone the Repository
