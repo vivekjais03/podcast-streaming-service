@@ -1,4 +1,4 @@
-#🎷 Podcast Streaming Service
+# 🎷 Podcast Streaming Service
 
 A full-stack podcast streaming platform where users can register, log in, upload podcasts, and listen to podcasts. Built using the MERN stack and deployed using Render (backend) and Vercel (frontend).
 
