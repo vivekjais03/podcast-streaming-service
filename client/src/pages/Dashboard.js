@@ -9,7 +9,7 @@ const Dashboard = () => {
 
   const fetchPodcasts = async () => {
     try {
-      const res = await axiosInstance.get("/podcasts");
+      const res = await axiosInstance.get("/api/podcasts");
       setPodcasts(res.data);
     } catch (err) {
       console.error("❌ Failed to fetch podcasts:", err);
@@ -24,7 +24,7 @@ const Dashboard = () => {
     if (!token) return toast.error("Please login to delete podcast");
 
     try {
-      await axiosInstance.delete(`/podcasts/${podcastId}`, {
+      await axiosInstance.delete(`/api/podcasts/${podcastId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setPodcasts((prev) => prev.filter((p) => p._id !== podcastId));
@@ -41,7 +41,7 @@ const Dashboard = () => {
 
     try {
       await axiosInstance.post(
-        `/favourites/${podcastId}`,
+        `/api/favourites/${podcastId}`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -66,10 +66,9 @@ const Dashboard = () => {
       "mt-2 p-1 bg-gray-100 dark:bg-[#2a2a3b] border border-gray-300 dark:border-gray-600 rounded-md shadow-md";
     const playerStyle = "w-full max-h-64 rounded-md pointer-events-auto";
 
-    const handleAutoPlay = (e) => {
-      e.currentTarget.play().catch((err) => {
-        console.warn("Autoplay failed:", err.message);
-      });
+    const handleLoadError = (e) => {
+      console.error("Media load error:", e.target.error);
+      toast.error("Failed to load media file");
     };
 
     return (
@@ -79,9 +78,12 @@ const Dashboard = () => {
             controls
             preload="metadata"
             className={playerStyle}
-            onClick={handleAutoPlay}
+            crossOrigin="anonymous"
+            onError={handleLoadError}
+            onLoadStart={() => console.log("Video loading started:", src)}
           >
             <source src={src} type={`video/${ext}`} />
+            <source src={src} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         ) : (
@@ -89,9 +91,11 @@ const Dashboard = () => {
             controls
             preload="metadata"
             className={playerStyle}
-            onClick={handleAutoPlay}
+            crossOrigin="anonymous"
+            onError={handleLoadError}
           >
             <source src={src} type={`audio/${ext}`} />
+            <source src={src} type="audio/mpeg" />
             Your browser does not support the audio element.
           </audio>
         )}
@@ -132,7 +136,17 @@ const Dashboard = () => {
 
               <div className="flex items-center justify-between mt-3 text-sm text-gray-700 dark:text-gray-400">
                 <span>Type: {pod.media?.split(".").pop().toUpperCase()}</span>
-                <FaHeadphones className="text-purple-500" />
+                <div className="flex items-center gap-2">
+                  <FaHeadphones className="text-purple-500" />
+                  <a 
+                    href={`https://podcast-backend-hixn.onrender.com/uploads/${pod.media}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs text-blue-500 hover:underline"
+                  >
+                    Direct Link
+                  </a>
+                </div>
               </div>
 
               <div className="flex gap-3 mt-5">

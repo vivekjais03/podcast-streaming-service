@@ -198,30 +198,76 @@ const HomeWithLayout = ({ page }) => {
 
   return (
     <div className={`flex min-h-screen transition-colors duration-300 ${darkMode ? "bg-[#0f0f14] text-white" : "bg-gray-100 text-black"}`}>
-      <button onClick={() => setSidebarOpen(!sidebarOpen)} className="md:hidden p-4 text-xl fixed top-2 left-2 z-50">
+      {/* Mobile Menu Button */}
+      <button 
+        onClick={() => setSidebarOpen(!sidebarOpen)} 
+        className={`md:hidden p-4 text-xl fixed top-2 left-2 z-50 ${darkMode ? "text-white" : "text-black"}`}
+      >
         {sidebarOpen ? <FaTimes /> : <FaBars />}
       </button>
 
+      {/* Mobile Overlay */}
       <AnimatePresence>
-        {(sidebarOpen || window.innerWidth >= 768) && (
+        {sidebarOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
+            onClick={() => setSidebarOpen(false)}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Desktop Sidebar */}
+      <aside className={`w-64 h-screen p-6 flex-col justify-between hidden md:flex md:sticky top-0 ${darkMode ? "bg-[#14141c]" : "bg-white border-r"}`}>
+        <div>
+          <button onClick={() => navigate("/")} className={`text-2xl font-bold flex items-center mb-8 ${darkMode ? "text-purple-500" : "text-purple-600"}`}>
+            <FaMicrophone className="mr-2" /> PODSTREAM
+          </button>
+          <nav className="flex flex-col gap-4 text-lg">
+            <Link to="/dashboard" className={linkClass("/dashboard")}><FaMicrophone /> Dashboard</Link>
+            <Link to="/search" className={linkClass("/search")}><FaSearch /> Search</Link>
+            <Link to="/favourites" className={linkClass("/favourites")}><FaHeart /> Favourites</Link>
+            <Link to="/upload" className={linkClass("/upload")}><FaUpload /> Upload</Link>
+            {!isLoggedIn && <Link to="/auth" className={linkClass("/auth") + " mt-4"}><FaSignInAlt /> Login / Sign Up</Link>}
+            <button onClick={toggleTheme} className="flex items-center gap-2 hover:text-purple-500 mt-2">
+              {darkMode ? <FaSun /> : <FaMoon />} {darkMode ? "Light" : "Dark"} Mode
+            </button>
+          </nav>
+        </div>
+        {isLoggedIn && (
+          <div className="mt-6 flex items-center gap-2">
+            <FaUserCircle className="text-3xl text-purple-400" />
+            <div className="text-sm">
+              <p className="font-semibold">{user.name}</p>
+              <button onClick={handleLogout} className="text-xs text-red-400 hover:underline">Logout</button>
+            </div>
+          </div>
+        )}
+      </aside>
+
+      {/* Mobile Sidebar */}
+      <AnimatePresence>
+        {sidebarOpen && (
           <motion.aside
-            key="sidebar"
+            key="mobile-sidebar"
             initial={{ x: -300 }}
             animate={{ x: 0 }}
             exit={{ x: -300 }}
-            transition={{ type: "tween" }}
-            className={`w-64 h-screen p-6 flex-col justify-between hidden md:flex md:sticky top-0 ${darkMode ? "bg-[#14141c]" : "bg-white border-r"}`}
+            transition={{ type: "tween", duration: 0.3 }}
+            className={`fixed left-0 top-0 w-64 h-screen p-6 flex flex-col justify-between z-50 md:hidden ${darkMode ? "bg-[#14141c]" : "bg-white border-r"}`}
           >
             <div>
-              <button onClick={() => navigate("/")} className={`text-2xl font-bold flex items-center mb-8 ${darkMode ? "text-purple-500" : "text-purple-600"}`}>
+              <button onClick={() => { navigate("/"); setSidebarOpen(false); }} className={`text-2xl font-bold flex items-center mb-8 ${darkMode ? "text-purple-500" : "text-purple-600"}`}>
                 <FaMicrophone className="mr-2" /> PODSTREAM
               </button>
               <nav className="flex flex-col gap-4 text-lg">
-                <Link to="/dashboard" className={linkClass("/dashboard")}><FaMicrophone /> Dashboard</Link>
-                <Link to="/search" className={linkClass("/search")}><FaSearch /> Search</Link>
-                <Link to="/favourites" className={linkClass("/favourites")}><FaHeart /> Favourites</Link>
-                <Link to="/upload" className={linkClass("/upload")}><FaUpload /> Upload</Link>
-                {!isLoggedIn && <Link to="/auth" className={linkClass("/auth") + " mt-4"}><FaSignInAlt /> Login / Sign Up</Link>}
+                <Link to="/dashboard" onClick={() => setSidebarOpen(false)} className={linkClass("/dashboard")}><FaMicrophone /> Dashboard</Link>
+                <Link to="/search" onClick={() => setSidebarOpen(false)} className={linkClass("/search")}><FaSearch /> Search</Link>
+                <Link to="/favourites" onClick={() => setSidebarOpen(false)} className={linkClass("/favourites")}><FaHeart /> Favourites</Link>
+                <Link to="/upload" onClick={() => setSidebarOpen(false)} className={linkClass("/upload")}><FaUpload /> Upload</Link>
+                {!isLoggedIn && <Link to="/auth" onClick={() => setSidebarOpen(false)} className={linkClass("/auth") + " mt-4"}><FaSignInAlt /> Login / Sign Up</Link>}
                 <button onClick={toggleTheme} className="flex items-center gap-2 hover:text-purple-500 mt-2">
                   {darkMode ? <FaSun /> : <FaMoon />} {darkMode ? "Light" : "Dark"} Mode
                 </button>
@@ -240,7 +286,7 @@ const HomeWithLayout = ({ page }) => {
         )}
       </AnimatePresence>
 
-      <main className="flex-1 overflow-y-auto p-6">
+      <main className="flex-1 overflow-y-auto p-6 md:p-6 pt-16 md:pt-6">
         <AnimatePresence mode="wait">
           {renderContent()}
         </AnimatePresence>

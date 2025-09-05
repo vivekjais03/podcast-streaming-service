@@ -17,16 +17,29 @@ const PORT = process.env.PORT || 5000;
 // 🛡️ Middleware
 app.use(
   cors({
-    origin: "https://podcast-streaming-service-rouge.vercel.app",
+    origin: ["https://podcast-streaming-service-rouge.vercel.app", "http://localhost:3000"],
     credentials: true,
   })
 );
-app.use(helmet());
+app.use(helmet({
+  crossOriginEmbedderPolicy: false,
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      mediaSrc: ["'self'", "data:", "blob:"],
+      imgSrc: ["'self'", "data:", "blob:"],
+    },
+  },
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// 📂 Serve static files (audio/video)
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+// 📂 Serve static files (audio/video) with proper headers
+app.use("/uploads", (req, res, next) => {
+  res.header("Cross-Origin-Resource-Policy", "cross-origin");
+  res.header("Access-Control-Allow-Origin", "*");
+  next();
+}, express.static(path.join(__dirname, "uploads")));
 
 // 🚦 Routes
 app.use("/api/auth", authRoutes);

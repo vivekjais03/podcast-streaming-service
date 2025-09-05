@@ -2,7 +2,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "https://podcast-backend-hixn.onrender.com/",
+  baseURL: "https://podcast-backend-hixn.onrender.com",
 });
 
 axiosInstance.interceptors.request.use(
