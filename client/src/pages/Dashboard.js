@@ -64,38 +64,24 @@ const Dashboard = () => {
     const isVideo = ["mp4", "mov", "webm", "ogg"].includes(ext);
     const containerStyle =
       "mt-2 p-1 bg-gray-100 dark:bg-[#2a2a3b] border border-gray-300 dark:border-gray-600 rounded-md shadow-md";
-    const playerStyle = "w-full max-h-64 rounded-md pointer-events-auto";
-
-    const handleLoadError = (e) => {
-      console.error("Media load error:", e.target.error);
-      toast.error("Failed to load media file");
-    };
+    const playerStyle = "w-full max-h-64 rounded-md";
 
     return (
       <div className={containerStyle}>
         {isVideo ? (
           <video
             controls
-            preload="metadata"
             className={playerStyle}
-            crossOrigin="anonymous"
-            onError={handleLoadError}
-            onLoadStart={() => console.log("Video loading started:", src)}
+            src={src}
           >
-            <source src={src} type={`video/${ext}`} />
-            <source src={src} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         ) : (
           <audio
             controls
-            preload="metadata"
             className={playerStyle}
-            crossOrigin="anonymous"
-            onError={handleLoadError}
+            src={src}
           >
-            <source src={src} type={`audio/${ext}`} />
-            <source src={src} type="audio/mpeg" />
             Your browser does not support the audio element.
           </audio>
         )}
@@ -136,17 +122,7 @@ const Dashboard = () => {
 
               <div className="flex items-center justify-between mt-3 text-sm text-gray-700 dark:text-gray-400">
                 <span>Type: {pod.media?.split(".").pop().toUpperCase()}</span>
-                <div className="flex items-center gap-2">
-                  <FaHeadphones className="text-purple-500" />
-                  <a 
-                    href={`https://podcast-backend-hixn.onrender.com/uploads/${pod.media}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs text-blue-500 hover:underline"
-                  >
-                    Direct Link
-                  </a>
-                </div>
+                <FaHeadphones className="text-purple-500" />
               </div>
 
               <div className="flex gap-3 mt-5">
